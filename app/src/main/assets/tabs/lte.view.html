@@ -1,0 +1,21 @@
+<table class="all-table">
+    <thead >
+        <tr class="header-tr">
+            <th ng-repeat="column in lte_view.order" ng-if="lte_view.has[column]" class="header-th" ng-click="reorder(column)">{{tr.LTE_T[column]}}
+                <svg ng-if="lte_view.sortorder == '-'+column" version="1.1" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 1000 1000" xml:space="preserve">
+                    <g><path d="M500,10c13.8,0,25.4,4.7,34.8,14.2l343,343c9.4,9.4,14.2,21.1,14.2,34.8c0,14-4.7,25.7-14,35c-9.3,9.3-21,14-35,14c-13.8,0-25.4-4.7-34.8-14.2L549,177.3V941c0,13.5-4.8,25.1-14.4,34.6c-9.6,9.6-21.1,14.4-34.6,14.4s-25.1-4.8-34.6-14.4c-9.6-9.6-14.4-21.1-14.4-34.6V177.3L191.8,436.8c-9.4,9.4-21.1,14.2-34.8,14.2c-14,0-25.7-4.7-35-14c-9.3-9.3-14-21-14-35c0-13.8,4.7-25.4,14.2-34.8l343-343C474.6,14.7,486.2,10,500,10L500,10z" fill="#aaaaaa"/></g>
+                </svg>
+                <svg ng-if="lte_view.sortorder == column" version="1.1" xmlns="http://www.w3.org/2000/svg" width="10px" height="10px" viewBox="0 0 1000 1000" xml:space="preserve">
+                    <g transform="rotate(180,500,500)"><path d="M500,10c13.8,0,25.4,4.7,34.8,14.2l343,343c9.4,9.4,14.2,21.1,14.2,34.8c0,14-4.7,25.7-14,35c-9.3,9.3-21,14-35,14c-13.8,0-25.4-4.7-34.8-14.2L549,177.3V941c0,13.5-4.8,25.1-14.4,34.6c-9.6,9.6-21.1,14.4-34.6,14.4s-25.1-4.8-34.6-14.4c-9.6-9.6-14.4-21.1-14.4-34.6V177.3L191.8,436.8c-9.4,9.4-21.1,14.2-34.8,14.2c-14,0-25.7-4.7-35-14c-9.3-9.3-14-21-14-35c0-13.8,4.7-25.4,14.2-34.8l343-343C474.6,14.7,486.2,10,500,10L500,10z" fill="#aaaaaa"/></g>
+                </svg>
+            </th>
+        </tr>
+    </thead>
+    <tbody >
+    <tr class="all-tr" ng-repeat="item in lte_table | limitTo:50 | orderBy:lte_view.sortorder">
+        <td ng-repeat="column in lte_view.order" ng-if="lte_view.has[column]" class="all-td">
+            <div>{{process(column,item)}}</div>
+        </td>
+    </tr>
+    </tbody>
+</table>
