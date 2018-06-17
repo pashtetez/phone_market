@@ -2,12 +2,15 @@
 <html ng-app="app">
 <head>
     <meta charset="utf-8" />
+    <meta name="theme-color" content="#009900" />
     <meta name="viewport" content="width=device-width, initial-scale=1 ,target-densitydpi=device-dpi">
     <title>МЭЛТ</title>
+    <link href="reset.css" rel="stylesheet" />
     <link href="app.css" rel="stylesheet" />
     <link href="style.css" rel="stylesheet" />
     <!--<script type="text/javascript" src="http://192.168.1.5:8000/sample_script.js"></script>-->
     <script id="datascript" type="text/javascript" src="my_live_loading_script.js"></script>
+    <script type="text/javascript" src="map_data.js"></script>
     <script type="text/javascript" src="const_data.js"></script>
     <script language="javascript">
          	function backButtonPressed(){
@@ -19,12 +22,12 @@
       </script>
     <script language="javascript">
          	function menuButtonPressed(){
-         	    document.getElementById("back").click();
+         	    document.getElementById("menu").click();
             }
       </script>
 </head>
 <body id="idForJS" style="bottom:0px;top:0px;left:0px;right:0px;position:fixed;margin:0px" ng-controller="ModemController">
-<div id="hider" style="top:0px;left:0px;width:0;height: 100%;position:fixed;margin:0px;z-index: 100;" onclick="closeNav()"></div>
+<div id="hider" style="top:0px;left:0px;width:0;height: 100%;position:fixed;margin:0px;z-index: 100;" ng-click="closeNav()"></div>
 <div id="mySidenav" class="sidenav" style="z-index: 99;">
     <div style="">
         <img src="logo.gif">
@@ -36,18 +39,17 @@
     <div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>
     <div onClick="Android.exit()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Выход</div>
     <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
+    <div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>
     <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
 </div>
 <script>
-function openNav() {document.getElementById("mySidenav").style.left = "0px";   document.getElementById("hider").style.width = "100%"; document.getElementById("hider").style.left = "210px";}
-function closeNav(){document.getElementById("mySidenav").style.left = "-210px";document.getElementById("hider").style.width = "0";    document.getElementById("hider").style.left = "0px";}
 function showAndroidToast(toast) {
         Android.showToast(toast);
     }
 </script>
 
 <div style="height:50px;background:#28c258;">
-    <div style="font-size:25px;float: left;padding:10px" onclick="openNav()">&#9776;</div>
+    <div id="menu" style="font-size:25px;float: left;padding:10px" ng-click="triggerMenu()">&#9776;</div>
     <span><input placeholder="Поиск" ng-model="search" ng-value="" ng-change="limit = 50" style="font-size:30px;height:40px;width: 200px; padding: 0px 4px; display: inline; border: none; border-bottom: 1px solid #ccc;background-color:transparent"/></span>
     <svg ng-click="favorites=!favorites" width="40px" height="36px" viewBox="0 0 300 275" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <polygon  ng-attr-fill="{{ favorites?'orange':'#FFF' }}" stroke="orange" stroke-width="10" color="orange" points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111" />

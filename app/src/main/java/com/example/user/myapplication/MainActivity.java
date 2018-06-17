@@ -2,12 +2,17 @@ package com.example.user.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.KeyEvent;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
@@ -190,11 +195,20 @@ public class MainActivity extends AppCompatActivity {
     WebViewLocalServer assetServer = null;
     String indexUrl = null;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         context = this;
+
+        Window window = this.getWindow();
+
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.setStatusBarColor(Color.parseColor("#009900"));//High api level
+
+
         //int numDeletedFiles = clearCacheFolder(context.getCacheDir(), 0);
         assetServer = new WebViewLocalServer(context);
         WebViewLocalServer.AssetHostingDetails details = assetServer.hostAssets("");
