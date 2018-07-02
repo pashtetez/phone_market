@@ -9,7 +9,7 @@ html         { overflow-y:hidden; }
 	top:50px;
 	width:100%;
 }
-* {
+div {
 font-size: 14px;
 font-family: Arial, Helvetica, sans-serif;
 }

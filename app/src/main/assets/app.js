@@ -159,13 +159,27 @@
         $scope.pricecnt = function(x, n) {
             var cats = [1, 25000, 80000];
             if (x.hasOwnProperty("\u041a\u043e\u0434") && (x['price' + n] != 0))
-                return "(от " + Math.ceil(cats[n - 1] / x['price' + n]) + "шт)";
+                return "(от\xa0" + Math.ceil(cats[n - 1] / x['price' + n]) + "шт)";
+            else
+                return ''
+        }
+        $scope.dateget = function() {
+            return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу Москва';
+        }
+        $scope.hideIt = function($event) {
+            $event.stopPropagation();
+            document.getElementById('actuality').style.display = 'none'
+        }
+
+        $scope.code = function(x) {
+            if (x.hasOwnProperty("count"))
+                return 'Код товара:'+x['\u041a\u043e\u0434'];
             else
                 return ''
         }
         $scope.counts = function(x) {
             if (x.hasOwnProperty("count"))
-                return x['count'] + x['count_unit'] + ' В наличии на ' + $scope.datenow.replace(/:.*$/g, "");
+                return x['count'] + x['count_unit'];
             else
                 return ''
         }

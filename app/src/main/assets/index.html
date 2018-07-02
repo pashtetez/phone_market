@@ -35,11 +35,14 @@
 
     <div style="height:0px;padding:0px;width:100%;border-bottom: 2px solid gray"></div>
     <div ng-click="favorites=!favorites" style="height:30px;line-height:30px;display: flex;  align-items: center;">Избранное</div>
-    <div ng-click="upd()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обновить</div>
+    <div ng-click="routeJKI()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обозначения ЖКИ</div>
+    <div ng-click="upd()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Настройки</div>
+
+    <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
     <div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>
     <div onClick="Android.exit()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Выход</div>
     <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
-    <div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>
+    <!--<div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>-->
     <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
 </div>
 <script>
@@ -62,7 +65,7 @@ function showAndroidToast(toast) {
 <div style="overflow-y: auto;" class="page {{ pageClass }}" ng-view></div>
 <div id="changeitem" ng-click="changeitem()">
 
-
+    <div id="actuality" ng-click="hideIt($event)" style="position: absolute; bottom: 5px; left:5%; width:90%; background: #73AD21;border-radius: 10px;padding: 5px;color:#FFFFFF; text-align:center">{{ dateget() }}<div style="float:right">X&nbsp;</div></div>
 
     <!--<div id="other-settings-view" ng-controller="otherSettingsController" class="modal-all" align="center" ng-include="'/client/modals/other-settings.view.html'"></div>-->
     <!--<div id="modem-view" ng-controller="sepModem" class="modal-all" align="center" ng-include="'/client/modals/modem.view.html'"></div>-->
