@@ -19,53 +19,51 @@
                 //var retrunValue = scope.javaScriptCallAngular();+
                 //alert("hui");
             }
-      </script>
+    </script>
     <script language="javascript">
-         	function menuButtonPressed(){
-         	    document.getElementById("menu").click();
-            }
-      </script>
+        function menuButtonPressed(){
+            document.getElementById("menu").click();
+        }
+    </script>
+    <script language="javascript">
+        function showAndroidToast(toast) {
+            Android.showToast(toast);
+        }
+    </script>
 </head>
-<body id="idForJS" style="bottom:0px;top:0px;left:0px;right:0px;position:fixed;margin:0px" ng-controller="ModemController">
-<div id="hider" style="top:0px;left:0px;width:0;height: 100%;position:fixed;margin:0px;z-index: 100;" ng-click="closeNav()"></div>
-<div id="mySidenav" class="sidenav" style="z-index: 99;">
-    <div style="">
-        <img src="logo.gif">
+<body id="idForJS" style="bottom:0px;top:0px;left:0px;right:0px;position:fixed;margin:0px" ng-controller="MainCTRL">
+
+    <div id="hider" style="top:0px;left:0px;width:0;height: 100%;position:fixed;margin:0px;z-index: 100;" ng-click="closeNav()"></div>
+    <div id="changeitem" ng-click="changeitem()">
+
+    <div class="sidenav" id="mySidenav" style="z-index: 99;">
+        <div style=""><img src="logo.gif"></div>
+        <div style="height:0px;padding:0px;width:100%;border-bottom: 2px solid gray"></div>
+        <div ng-click="favorites=!favorites" style="height:30px;line-height:30px;display: flex;  align-items: center;">Избранное</div>
+        <div ng-click="routeJKI()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обозначения ЖКИ</div>
+        <div ng-click="upd()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Настройки</div>
+
+        <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
+        <div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>
+        <div onClick="Android.exit()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Выход</div>
+        <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
+        <!--<div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>-->
+        <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
     </div>
 
-    <div style="height:0px;padding:0px;width:100%;border-bottom: 2px solid gray"></div>
-    <div ng-click="favorites=!favorites" style="height:30px;line-height:30px;display: flex;  align-items: center;">Избранное</div>
-    <div ng-click="routeJKI()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обозначения ЖКИ</div>
-    <div ng-click="upd()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Настройки</div>
 
-    <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
-    <div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>
-    <div onClick="Android.exit()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Выход</div>
-    <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
-    <!--<div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>-->
-    <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
-</div>
-<script>
-function showAndroidToast(toast) {
-        Android.showToast(toast);
-    }
-</script>
+    <div class="top_bar" style="height:50px;background:#28c258;">
+        <div id="menu" style="font-size:25px;float: left;padding:10px" ng-click="triggerMenu()">&#9776;</div>
+        <span><input placeholder="Поиск" ng-model="search" ng-value="" ng-change="limit = 50" style="font-size:30px;height:40px;width: 200px; padding: 0px 4px; display: inline; border: none; border-bottom: 1px solid #ccc;background-color:transparent"/></span>
+        <svg ng-click="favorites=!favorites" width="40px" height="36px" viewBox="0 0 300 275" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <polygon  ng-attr-fill="{{ favorites?'orange':'#FFF' }}" stroke="orange" stroke-width="10" color="orange" points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111" />
+        </svg>
+        <div style="height: 45px;width: 45px;float: right;" id="back" ng-click="javaScriptCallAngular()"><img style="" src="back.svg.png"/></div>
+    </div>
 
-<div style="height:50px;background:#28c258;">
-    <div id="menu" style="font-size:25px;float: left;padding:10px" ng-click="triggerMenu()">&#9776;</div>
-    <span><input placeholder="Поиск" ng-model="search" ng-value="" ng-change="limit = 50" style="font-size:30px;height:40px;width: 200px; padding: 0px 4px; display: inline; border: none; border-bottom: 1px solid #ccc;background-color:transparent"/></span>
-    <svg ng-click="favorites=!favorites" width="40px" height="36px" viewBox="0 0 300 275" xmlns="http://www.w3.org/2000/svg" version="1.1">
-        <polygon  ng-attr-fill="{{ favorites?'orange':'#FFF' }}" stroke="orange" stroke-width="10" color="orange" points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111" />
-    </svg>
-    <div style="height: 45px;width: 45px;float: right;" id="back" ng-click="javaScriptCallAngular()"><img style="" src="back.svg.png"/></div>
-</div>
-<div data-role="panel" data-display="push" data-theme="b" id="nav-panel" class="ui-panel-open">
+    <div style="overflow-y: auto;" class="page {{ pageClass }}" ng-view></div>
 
-</div>
-<div style="overflow-y: auto;" class="page {{ pageClass }}" ng-view></div>
-<div id="changeitem" ng-click="changeitem()">
-
-    <div id="actuality" ng-click="hideIt($event)" style="position: absolute; bottom: 5px; left:5%; width:90%; background: #73AD21;border-radius: 10px;padding: 5px;color:#FFFFFF; text-align:center">{{ dateget() }}<div style="float:right">X&nbsp;</div></div>
+    <div class="date_popup" id="actuality" ng-click="hideIt($event)" style="position: absolute; bottom: 5px; left:5%; width:90%; background: #73AD21;border-radius: 10px;padding: 5px;color:#FFFFFF; text-align:center">{{ dateget() }}<div style="float:right">X&nbsp;</div></div>
 
     <!--<div id="other-settings-view" ng-controller="otherSettingsController" class="modal-all" align="center" ng-include="'/client/modals/other-settings.view.html'"></div>-->
     <!--<div id="modem-view" ng-controller="sepModem" class="modal-all" align="center" ng-include="'/client/modals/modem.view.html'"></div>-->
