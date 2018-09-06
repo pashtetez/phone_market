@@ -1,16 +1,11 @@
 package ru.com.melt.meltlcd;
 
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.view.KeyEvent;
@@ -19,39 +14,25 @@ import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceResponse;
+import android.webkit.WebStorage;
 import android.webkit.WebView;
-import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.StringBufferInputStream;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import static ru.com.melt.meltlcd.GetCacheDir.context;
@@ -150,37 +131,26 @@ public class WebBrowser extends AppCompatActivity {
     private class CustomBrowser extends WebViewClient {
         @Override
         public boolean shouldOverrideUrlLoading(WebView webView, String url) {
-            if (url.endsWith("my_live_loading_script.js")) {
-                Log.e("mymessage", url);
-                int index = url.lastIndexOf('/');
-                webView.loadUrl(url.substring(0, index) + "/swap1.txt");
-            } else if (Uri.parse(url).getScheme().equals("file")) {
+            if (Uri.parse(url).getScheme().equals("file")) {
                 webView.loadUrl(url);
             } else {
-                // If the URI is not pointing to a local file, open with an ACTION_VIEW Intent
                 webView.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
             }
-            return true; // in both cases we handle the link manually
+            return true;
         }
-
         @Override
         public WebResourceResponse shouldInterceptRequest(final WebView view, String url) {
-            if (url.endsWith("my_live_loading_script.js")) {
-                Log.e("mymessage1", url);
-                return getCssWebResourceResponseFromString();
-            } else {
-                Log.e("mymessage", url);
+            if (url.endsWith("moscow_live_data.js")) {
+                return getCssWebResourceResponseFromString("http://www.melt.com.ru/pdf/swap1.txt", "moscow_cached.txt");
+            } else if (url.endsWith("piter_live_data.js")) {
+                return getCssWebResourceResponseFromString("http://www.melt.com.ru/tmp/swap.txt", "piter_cached.txt");
+            } else  {
                 return assetServer.shouldInterceptRequest(url);
             }
         }
-
-        private WebResourceResponse getCssWebResourceResponseFromString() {
-            //String exampleString = "b = \"wow\";";
-
+        private WebResourceResponse getCssWebResourceResponseFromString(String origin_uri, String cache_path) {
             try {
-                //URLConnection cn = new URL("http://192.168.1.5:8000/my_live_loading_script.js").openConnection();
-                Log.e("mymessage", "hiu");
-                URL url = new URL("http://www.melt.com.ru/pdf/swap1.txt");
+                URL url = new URL(origin_uri);
                 String exampleString = "";
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
@@ -196,36 +166,14 @@ public class WebBrowser extends AppCompatActivity {
                 } finally {
                     urlConnection.disconnect();
                 }
-                boolean success = GetCacheDir.writeAllCachedText("myCacheFile.txt", exampleString);
+                boolean success = GetCacheDir.writeAllCachedText(cache_path, exampleString);
                 InputStream stream = new ByteArrayInputStream(exampleString.getBytes(Charset.forName("UTF-8")));
-                return getUtf8EncodedCssWebResourceResponse(stream);
+                return new WebResourceResponse("text/css", "UTF-8", stream);
             } catch (IOException e) {
-                String exampleString = GetCacheDir.readAllCachedText("myCacheFile.txt");
+                String exampleString = GetCacheDir.readAllCachedText(cache_path);
                 InputStream stream = new ByteArrayInputStream(exampleString.getBytes(Charset.forName("UTF-8")));
-                return getUtf8EncodedCssWebResourceResponse(stream);
+                return new WebResourceResponse("text/css", "UTF-8", stream);
             }
-
-
-        }
-
-        /**
-         * Return WebResourceResponse with CSS markup from an asset (e.g. "assets/style.css").
-         */
-        private WebResourceResponse getCssWebResourceResponseFromAsset() {
-            try {
-                return getUtf8EncodedCssWebResourceResponse(getAssets().open("style.css"));
-            } catch (IOException e) {
-                return null;
-            }
-        }
-        /**
-         * Return WebResourceResponse with CSS markup from a raw resource (e.g. "raw/style.css").
-         */
-        //            private WebResourceResponse getCssWebResourceResponseFromRawResource() {
-        //                return getUtf8EncodedCssWebResourceResponse(getResources().openRawResource(R.raw.style));
-        //            }
-        private WebResourceResponse getUtf8EncodedCssWebResourceResponse(InputStream data) {
-            return new WebResourceResponse("text/css", "UTF-8", data);
         }
     }
 
@@ -242,11 +190,6 @@ public class WebBrowser extends AppCompatActivity {
     public void onBackPressed() {
         WebView myWebView = findViewById(R.id.webview);
         myWebView.loadUrl("javascript:backButtonPressed()");
-//        if (myWebView.hasPopUp()) {
-//            myWebView.loadUrl("javascript:closePopUp()");
-//        } else {
-//            super.onBackPressed();
-//        }
     }
 
     public class WebAppInterface {
@@ -259,6 +202,12 @@ public class WebBrowser extends AppCompatActivity {
         @JavascriptInterface
         public void showToast(String toast) {
             Toast.makeText(mContext, toast, Toast.LENGTH_SHORT).show();
+        }
+        @JavascriptInterface
+        public void clearData() {
+            clearCacheFolder(mContext.getCacheDir(),0);
+            WebStorage.getInstance().deleteAllData();
+            exit();
         }
         @JavascriptInterface
         public void exit() {
@@ -284,13 +233,9 @@ public class WebBrowser extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(Color.parseColor("#009900"));//High api level
         }
-        //int numDeletedFiles = clearCacheFolder(context.getCacheDir(), 0);
-        //boolean success = GetCacheDirExample.writeAllCachedText( "myCacheFile.txt", textToCache);
-        //https://stackoverflow.com/questions/44979340/html-link-to-local-file-in-webview-with-target-api-24
         assetServer = new WebViewLocalServer(context);
         WebViewLocalServer.AssetHostingDetails details = assetServer.hostAssets("");
         indexUrl = details.getHttpPrefix().buildUpon().appendPath("index.html").toString();
-        //indexUrl = "http://192.168.1.5:8001/index.html";
         setContentView(R.layout.activity_web_browser);
         WebView myWebView = findViewById(R.id.webview);
         myWebView.setWebChromeClient(new WebChromeClient());

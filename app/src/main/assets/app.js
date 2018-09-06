@@ -95,7 +95,7 @@
             dynamicScript.type = "text/javascript";
             dynamicScript.id = "datascript"
             if (window.location.href.indexOf('android_asset') == -1)
-                dynamicScript.src = "my_live_loading_script.js";
+                dynamicScript.src = "moscow_live_data.js";
             else
                 dynamicScript.src = "data.js?t=" + new Date().getTime() + "data";
             $scope.datenow = data['date'];
