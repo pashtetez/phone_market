@@ -139,9 +139,11 @@
 
 
         $scope.items = function() {
-            if ($scope.search == '' && $scope.itemone == null && !$scope.favorites)
-            return $scope.item;
-            else{
+            if ($scope.search == '' && $scope.itemone == null && !$scope.favorites){
+                console.log('ITEMS CALL');
+                console.log($scope.item);
+                return $scope.item;
+            }else{
                 console.log('qwdasdadwaAAAAAAAAAAAAA');
                 return $scope.itemlist;
             }
@@ -175,6 +177,13 @@
         $scope.help = function(x) {
             $scope.pageClass = 'page-about';
             $scope.limit = 50;
+            if ($scope.xx){
+            console.log($scope.xx);
+            console.log(x);
+            console.log($scope.xx['subtiteles'].indexOf(x));
+            }else{
+            console.log(const_data.indexOf(x));
+            }
             $scope.xx = x;
             console.log($scope.xx);
             $timeout(function() {
@@ -185,9 +194,9 @@
 
 
         $scope.changeitem = function() {
-
             if ($scope.ready) {
                 var x = $scope.xx;
+                console.log(x);
                 $scope.parent.push($scope.item);
                 if (x.hasOwnProperty('subtiteles') && x['subtiteles'].length)
                     $scope.item = x['subtiteles']
