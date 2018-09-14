@@ -139,14 +139,27 @@
 
 
         $scope.items = function() {
-            if ($scope.search == '' && $scope.itemone == null && !$scope.favorites){
-                console.log('ITEMS CALL');
-                console.log($scope.item);
-                return $scope.item;
-            }else{
-                console.log('qwdasdadwaAAAAAAAAAAAAA');
-                return $scope.itemlist;
+            var x = const_data;
+            if ($routeParams.page){
+                var route = $routeParams.page.split('-');
+                for (var i in route){
+                    if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
+                        x = x[parseInt(route[i])]['subtiteles'];
+                    else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
+                        x = x[parseInt(route[i])]['subitems'];
+                }
+                console.log(x);
+                return x;//const_data[$routeParams.page]['subtiteles'];
             }
+            return x;
+//            if ($scope.search == '' && $scope.itemone == null && !$scope.favorites){
+//                console.log('ITEMS CALL');
+//                console.log($scope.item);
+//                return $scope.item;
+//            }else{
+//                console.log('qwdasdadwaAAAAAAAAAAAAA');
+//                return $scope.itemlist;
+//            }
         }
         $scope.addfav = function($event, x) {
             $event.stopPropagation();
@@ -177,15 +190,7 @@
         $scope.help = function(x) {
             $scope.pageClass = 'page-about';
             $scope.limit = 50;
-            if ($scope.xx){
-            console.log($scope.xx);
-            console.log(x);
-            console.log($scope.xx['subtiteles'].indexOf(x));
-            }else{
-            console.log(const_data.indexOf(x));
-            }
             $scope.xx = x;
-            console.log($scope.xx);
             $timeout(function() {
                 document.getElementById("changeitem").click();
             }, 10);
@@ -208,7 +213,8 @@
                     $scope.$apply()
                 }
                 $scope.ready = false;
-                $location.path('/shop/'+($routeParams.page+1));
+                console.log($routeParams.page);
+                $location.path('/shop/'+const_data.indexOf(x));
                 $route.reload();
                 console.log($routeParams.page);
               //  $scope.search = $routeParams.page;
@@ -329,6 +335,10 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/shop/:page', {
+                templateUrl: 'index1.html',
+                controllerAs: 'vm'
+            })
+            .when('/shop/', {
                 templateUrl: 'index1.html',
                 controllerAs: 'vm'
             })
