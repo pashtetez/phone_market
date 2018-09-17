@@ -35,7 +35,7 @@
 <body id="idForJS" style="bottom:0px;top:0px;left:0px;right:0px;position:fixed;margin:0px" ng-controller="MainCTRL">
 
     <div id="hider" style="top:0px;left:0px;width:0;height: 100%;position:fixed;margin:0px;z-index: 100;" ng-click="closeNav()"></div>
-    <div id="changeitem" ng-click="changeitem()">
+    <div id="routePartTwo" ng-click="routePartTwo()"></div>
 
     <div class="sidenav" id="mySidenav" style="z-index: 99;">
         <div style=""><img src="logo.gif"></div>
@@ -59,7 +59,7 @@
         <svg ng-click="favorites=!favorites" width="40px" height="36px" viewBox="0 0 300 275" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <polygon  ng-attr-fill="{{ favorites?'orange':'#FFF' }}" stroke="orange" stroke-width="10" color="orange" points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111" />
         </svg>
-        <div style="height: 45px;width: 45px;float: right;" id="back" ng-click="javaScriptCallAngular()"><img style="" src="back.svg.png"/></div>
+        <div style="height: 45px;width: 45px;float: right;" id="back" ng-click="backButtonPressed()"><img style="" src="back.svg.png"/></div>
     </div>
 
     <div style="overflow-y: auto;" class="page {{ pageClass }}" ng-view></div>

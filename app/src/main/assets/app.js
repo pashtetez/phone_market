@@ -32,7 +32,6 @@
     function searchTree(element) {
         var r = [];
         r = r.concat(element['subitems']);
-        console.log(element)
         if (element['subtiteles'].length) {
             for (var i = 0; i < element['subtiteles'].length; i++) {
                 r = r.concat(searchTree(element['subtiteles'][i]));
@@ -59,6 +58,10 @@
             $scope.limit = $scope.limit + 50;
         }
         $scope.map_data = map_data;
+
+        ///////////////////////
+        /////////MENU//////////
+        ///////////////////////
         $scope.menuroute = function(href) {
             $scope.closeNav();
             $location.path(href);
@@ -76,19 +79,28 @@
             document.getElementById("hider").style.width = "0";
             document.getElementById("hider").style.left = "0px";
         }
+        $scope.hideIt = function($event) {
+            $event.stopPropagation();
+            document.getElementById('actuality').style.display = 'none'
+        }
+        $scope.triggerMenu = function() {
+            if ($scope.menuopened)
+                $scope.closeNav();
+            else
+                $scope.openNav();
+        }
 
-        var fileName = "http://www.melt.com.ru/pdf/swap1.txt";
-        $scope.records = [
-            "Alfreds Futterkiste",
-            "Berglunds snabbköp",
-            "Centro comercial Moctezuma",
-            "Ernst Handel",
-        ]
-
-
-
-        $scope.records[0] = window.location.href;
+        ///////////////////////
+        // DATE POPUP FOOTER //
+        ///////////////////////
         $scope.datenow = data['date'];
+        $scope.dateget = function() {
+            return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу Москва';
+        }
+
+        /////////////////////////
+        // SCOPE INIT FUNCTION //
+        /////////////////////////
         $scope.upd = function() {
             var docHeadObj = document.getElementsByTagName("head")[0];
             var dynamicScript = document.createElement("script");
@@ -120,10 +132,7 @@
                         ["\u041a\u043e\u0434"]
                     ]]['currency_name'];
                 }
-                //                           $scope.search = data['categories'][0]['group_code'];
-                console.log(data['items']);
                 $scope.map_data = map_data;
-                console.log($scope.map_data);
                 if (!$scope.$$phase) {
                     $scope.$apply()
                 }
@@ -133,34 +142,9 @@
         };
         $scope.upd();
 
-
-
-
-
-
-        $scope.items = function() {
-            var x = const_data;
-            if ($routeParams.page){
-                var route = $routeParams.page.split('-');
-                for (var i in route){
-                    if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
-                        x = x[parseInt(route[i])]['subtiteles'];
-                    else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
-                        x = x[parseInt(route[i])]['subitems'];
-                }
-                console.log(x);
-                return x;//const_data[$routeParams.page]['subtiteles'];
-            }
-            return x;
-//            if ($scope.search == '' && $scope.itemone == null && !$scope.favorites){
-//                console.log('ITEMS CALL');
-//                console.log($scope.item);
-//                return $scope.item;
-//            }else{
-//                console.log('qwdasdadwaAAAAAAAAAAAAA');
-//                return $scope.itemlist;
-//            }
-        }
+        //////////////
+        // FAVORITE //
+        //////////////
         $scope.addfav = function($event, x) {
             $event.stopPropagation();
             //    $event.preventDefault();
@@ -171,92 +155,13 @@
                 data.push(x["\u041a\u043e\u0434"]);
             localStorage.setItem("favorites", JSON.stringify(data));
         }
-        $scope.parent = [];
-        $scope.ready = true;
-        $scope.$on('$routeChangeSuccess', function($event, next, current) {
-            $timeout(function() {
-                $scope.pageClass = 'page-contact';
-                $scope.ready = true;
-            }, 300);
-        });
 
-        $scope.triggerMenu = function() {
-            if ($scope.menuopened)
-                $scope.closeNav();
-            else
-                $scope.openNav();
-        }
-
-        $scope.help = function(x) {
-            $scope.pageClass = 'page-about';
-            $scope.limit = 50;
-            $scope.xx = x;
-            $timeout(function() {
-                document.getElementById("changeitem").click();
-            }, 10);
-        }
-
-
-
-        $scope.changeitem = function() {
-            if ($scope.ready) {
-                var x = $scope.xx;
-                console.log(x);
-                $scope.parent.push($scope.item);
-                if (x.hasOwnProperty('subtiteles') && x['subtiteles'].length)
-                    $scope.item = x['subtiteles']
-                else if (x.hasOwnProperty('subitems') && x['subitems'].length)
-                    $scope.item = x['subitems']
-                else
-                    $scope.itemone = x
-                if (!$scope.$$phase) {
-                    $scope.$apply()
-                }
-                $scope.ready = false;
-                console.log($routeParams.page);
-                $location.path('/shop/'+const_data.indexOf(x));
-                $route.reload();
-                console.log($routeParams.page);
-              //  $scope.search = $routeParams.page;
-            }
-        }
-        $scope.javaScriptCallAngular = function() {
-            if ($scope.menuopened) {
-                $scope.closeNav();
-                return;
-            }
-
-            if ($scope.parent.length != 0) {
-                $scope.item = $scope.parent.pop();
-                if ($scope.itemone == null)
-                    $scope.search = '';
-                $scope.itemone = null;
-                $scope.limit = 50;
-                if (!$scope.$$phase) {
-                    $scope.$apply()
-                }
-                $location.path('/shop/1');
-               // $scope.search = $routeParams.page;
-            }
-        };
-        $scope.itemone = null;
-        $scope.itemonelist = function(itemone) {
-            console.log(itemone);
-            if ($scope.itemone == null) return [];
-            //                        for(var i=0; i < itemone.keys; i++){
-            //                           console.log(itemone.children[i]);
-            //                        }
-            var keys = Object.keys(itemone);
-            keys.splice(keys.indexOf("$$hashKey"), 1);
-            keys.splice(keys.indexOf("empty_header"), 1);
-            keys.splice(keys.indexOf("\u0426\u0435\u043d\u04303"), 1);
-            keys.splice(keys.indexOf("\u0421\u043a\u043b\u0430\u0434"), 1);
-            return keys;
-        }
-
+        /////////////////
+        // SEACRH LOGIC//
+        /////////////////
         $scope.search = '';
         $scope.searchfunc = function(item) {
-            if ($scope.search == '' && $scope.itemone == null && !$scope.favorites) return true;
+            if ($scope.search == '' && !$scope.favorites) return true;
             if ((item["\u041a\u043e\u0434"].indexOf($scope.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
                 if ($scope.favorites && (JSON.parse(localStorage.getItem("favorites")).indexOf(item["\u041a\u043e\u0434"]) == -1)) return false;
                 return true;
@@ -264,17 +169,95 @@
             return false;
         };
 
-
-        $scope.dateget = function() {
-            return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу Москва';
+        /////////////////////////
+        // SHOP DATA FUNCTIONS //
+        /////////////////////////
+        $scope.shopitems = function() {
+            var x = const_data;
+            if ($routeParams.page){
+                var route = $routeParams.page.split('-');
+                for (var i in route){
+                    if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
+                        x = x[parseInt(route[i])]['subtiteles'];
+                    else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
+                        x = x[parseInt(route[i])]['subitems'];
+                }
+            }
+            return x;
         }
-        $scope.hideIt = function($event) {
-            $event.stopPropagation();
-            document.getElementById('actuality').style.display = 'none'
+
+        /////////////////////
+        // ROUTE FUNCTIONS //
+        /////////////////////
+        $scope.ready = true;
+        $scope.$on('$routeChangeSuccess', function($event, next, current) {
+            $timeout(function() {
+                $scope.pageClass = 'page-contact';
+                $scope.ready = true;
+            }, 300);
+        });
+        $scope.routePartOne = function(x) {
+            $scope.pageClass = 'page-about';
+            $scope.limit = 50;
+            $scope.routetmp = x;
+            $timeout(function() {
+                document.getElementById("routePartTwo").click();
+            }, 10);
+        }
+        $scope.routePartTwo = function() {
+            if ($scope.ready) {
+                var x = $scope.routetmp;
+                if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
+                    $location.path('/item/'+x["\u041a\u043e\u0434"]);
+                }else{
+                    if($routeParams.page){
+                         $location.path('/shop/'+$routeParams.page+'-'+$scope.shopitems().indexOf(x));
+                    }else{
+                        $location.path('/shop/'+$scope.shopitems().indexOf(x));
+                    }
+                }
+                if (!$scope.$$phase) {
+                    $scope.$apply()
+                }
+                $scope.ready = false;
+                $route.reload();
+            }
+        }
+        $scope.backButtonPressed = function() {
+            if ($scope.menuopened) {
+                $scope.closeNav();
+                return;
+            }
+            $scope.limit = 50;
+            //if ($scope.itemone == null)
+            //    $scope.search = '';
+            $window.history.back();
+            if(!$scope.$$phase)$scope.$apply();
+        };
+
+        ////////////////////////
+        // ONE ITEM FUNCTIONS //
+        ////////////////////////
+        $scope.currentItem = null;
+        $scope.getCurrentItemsKeys = function() {
+            if($routeParams.code){
+                 for (var i = 0; i < $scope.itemlist.length; i++) {
+                    if($scope.itemlist[i]["\u041a\u043e\u0434"] ==  $routeParams.code){
+                        $scope.currentItem = $scope.itemlist[i];
+                        continue;
+                    }
+                 }
+            }
+            var keys = Object.keys($scope.currentItem);
+            keys.splice(keys.indexOf("$$hashKey"), 1);
+            keys.splice(keys.indexOf("empty_header"), 1);
+            keys.splice(keys.indexOf("\u0426\u0435\u043d\u04303"), 1);
+            keys.splice(keys.indexOf("\u0421\u043a\u043b\u0430\u0434"), 1);
+            return keys;
         }
 
         ////////////////////
-        // ITEM FUNCTIONS //
+        // SHOP FUNCTIONS //
         ////////////////////
         $scope.f_not_empty_image = function(x) {
             if (x.hasOwnProperty('image'))
@@ -335,27 +318,23 @@
     function config($routeProvider, $locationProvider) {
         $routeProvider
             .when('/shop/:page', {
-                templateUrl: 'index1.html',
+                templateUrl: 'pages/shop.html',
                 controllerAs: 'vm'
             })
             .when('/shop/', {
-                templateUrl: 'index1.html',
+                templateUrl: 'pages/shop.html',
                 controllerAs: 'vm'
             })
             .when('/favorite', {
-                templateUrl: 'index1.html',
+                templateUrl: 'pages/favorite.html',
                 controllerAs: 'vm'
             })
             .when('/item/:code', {
-                templateUrl: 'index1.html',
+                templateUrl: 'pages/item.html',
                 controllerAs: 'vm'
             })
             .when('/', {
-                templateUrl: 'index1.html',
-                controllerAs: 'vm'
-            })
-            .when('/q', {
-                templateUrl: 'index2.html',
+                templateUrl: 'pages/shop.html',
                 controllerAs: 'vm'
             })
             .when('/:name*', {
