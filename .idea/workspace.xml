@@ -2,29 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="75103e4c-fe06-4b20-9c5e-82e984bd453a" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.4/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/MELTLCD.iml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
       <change beforePath="$PROJECT_DIR$/app/src/main/assets/app.js" afterPath="$PROJECT_DIR$/app/src/main/assets/app.js" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/convert.py" afterPath="" />
       <change beforePath="$PROJECT_DIR$/app/src/main/assets/index.html" afterPath="$PROJECT_DIR$/app/src/main/assets/index.html" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/index1.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/index3.html" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/pages/item.html" afterPath="$PROJECT_DIR$/app/src/main/assets/pages/item.html" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/pages/favorite.html" afterPath="$PROJECT_DIR$/app/src/main/assets/pages/favorite.html" />
       <change beforePath="$PROJECT_DIR$/app/src/main/assets/pages/shop.html" afterPath="$PROJECT_DIR$/app/src/main/assets/pages/shop.html" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/swap" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/swap2" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/swap2.txt" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/assets/test.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/local.properties" afterPath="$PROJECT_DIR$/local.properties" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/assets/style.css" afterPath="$PROJECT_DIR$/app/src/main/assets/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,21 +30,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" column="9" lean-forward="false" selection-start-line="16" selection-start-column="9" selection-end-line="16" selection-end-column="9" />
+            <state relative-caret-position="790">
+              <caret line="168" column="28" lean-forward="false" selection-start-line="168" selection-start-column="28" selection-end-line="168" selection-end-column="28" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/assets/app.js">
+      <file leaf-file-name="piter_live_data.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/piter_live_data.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="203" column="53" lean-forward="false" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="53" />
+            <state relative-caret-position="254">
+              <caret line="0" column="965687" lean-forward="true" selection-start-line="0" selection-start-column="965687" selection-end-line="0" selection-end-column="965687" />
               <folding />
             </state>
           </provider>
@@ -82,18 +65,58 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="WebBrowser.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/com/melt/meltlcd/WebBrowser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="476">
+              <caret line="144" column="56" lean-forward="false" selection-start-line="144" selection-start-column="36" selection-end-line="144" selection-end-column="56" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/settings.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="51">
+              <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+              <folding>
+                <element signature="e#20#89#0" expanded="true" />
+                <element signature="e#99#137#0" expanded="true" />
+                <element signature="e#202#275#0" expanded="true" />
+                <element signature="e#330#368#0" expanded="true" />
+                <element signature="e#513#623#0" expanded="true" />
+                <element signature="e#720#777#0" expanded="true" />
+                <element signature="e#1081#1118#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/style.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/assets/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="49" column="92" lean-forward="true" selection-start-line="49" selection-start-column="92" selection-end-line="49" selection-end-column="92" />
-              <folding />
+            <state relative-caret-position="281">
+              <caret line="67" column="59" lean-forward="false" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="59" />
+              <folding>
+                <element signature="e#2244#2317#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="favorite.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/favorite.html">
+      <file leaf-file-name="moscow_live_data.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/moscow_live_data.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -102,35 +125,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shop.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="shop.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/shop.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
-              <folding />
+            <state relative-caret-position="680">
+              <caret line="40" column="93" lean-forward="false" selection-start-line="40" selection-start-column="93" selection-end-line="40" selection-end-column="93" />
+              <folding>
+                <element signature="e#2636#2687#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.phpoptioncom_fireboard&amp;Itemid16.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/assets/sitemap/index.phpoptioncom_fireboard&amp;Itemid16.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="back.svg.png" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/assets/back.svg.png">
-          <provider selected="true" editor-type-id="images">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="back.svg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/assets/back.svg">
+      <file leaf-file-name="favicon.ico" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/assets/favicon.ico">
           <provider selected="true" editor-type-id="images">
             <state />
           </provider>
@@ -140,17 +148,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>page</find>
-      <find>$scope.map_data</find>
-      <find>$scope.xx</find>
-      <find>map_data</find>
-      <find>back.s</find>
-      <find>openNav</find>
-      <find>menuroute</find>
-      <find>$scope.items()</find>
-      <find>shopitems</find>
-      <find>javaScriptCallAngular</find>
-      <find>javas</find>
       <find>$scope.itemone</find>
       <find>itemone</find>
       <find>itemonelist</find>
@@ -167,6 +164,20 @@
       <find>triggerMenu</find>
       <find>routePartTwo</find>
       <find>routeParttwo</find>
+      <find>window</find>
+      <find>searchfunc</find>
+      <find>searchfuncfav</find>
+      <find>$scope.itemlist</find>
+      <find>searchfuncshop</find>
+      <find>favorite</find>
+      <find>favorites</find>
+      <find>moscow_live</find>
+      <find>24795</find>
+      <find>moscow_</find>
+      <find>data</find>
+      <find>складу</find>
+      <find>dateget</find>
+      <find>hideIt</find>
     </findStrings>
     <replaceStrings>
       <replace>currentItem</replace>
@@ -2190,8 +2201,12 @@
         <option value="$PROJECT_DIR$/app/src/main/assets/index1.html" />
         <option value="$PROJECT_DIR$/app/src/main/assets/pages/item.html" />
         <option value="$PROJECT_DIR$/app/src/main/assets/pages/shop.html" />
-        <option value="$PROJECT_DIR$/app/src/main/assets/app.js" />
+        <option value="$PROJECT_DIR$/app/src/main/assets/pages/favorite.html" />
         <option value="$PROJECT_DIR$/app/src/main/assets/index.html" />
+        <option value="$PROJECT_DIR$/app/src/main/assets/piter_live_data.js" />
+        <option value="$PROJECT_DIR$/app/src/main/assets/app.js" />
+        <option value="$PROJECT_DIR$/app/src/main/assets/pages/settings.html" />
+        <option value="$PROJECT_DIR$/app/src/main/assets/style.css" />
       </list>
     </option>
   </component>
@@ -2217,15 +2232,29 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
               <item name="phone_market" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="phone_market" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="phone_market" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="phone_market" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="meltlcd" type="cbb59c9e:AndroidPsiDirectoryNode" />
             </path>
             <path>
               <item name="phone_market" type="1abcf292:AndroidViewProjectNode" />
@@ -2246,11 +2275,18 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="android.sdk.path" value="$USER_HOME$/Android/Sdk" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\user\AndroidStudioProjects\phone_market\app\src\main\assets" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -2459,6 +2495,21 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/back.svg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/shop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+          <folding>
+            <element signature="e#2636#2687#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -2484,7 +2535,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1054">
           <caret line="62" column="10" lean-forward="true" selection-start-line="62" selection-start-column="10" selection-end-line="62" selection-end-column="10" />
-          <folding />
+          <folding>
+            <element signature="e#2244#2317#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2500,7 +2553,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="7" lean-forward="false" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
-          <folding />
+          <folding>
+            <element signature="e#2636#2687#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2555,7 +2610,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="850">
           <caret line="50" column="137" lean-forward="false" selection-start-line="50" selection-start-column="128" selection-end-line="50" selection-end-column="137" />
-          <folding />
+          <folding>
+            <element signature="e#2244#2317#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2571,7 +2628,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#2636#2687#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2655,13 +2714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/com/melt/meltlcd/WebBrowser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-18">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/map_data.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2685,14 +2737,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/index1.html" />
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/index3.html" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/favorite.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/test.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/swap2.txt" />
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/swap2" />
@@ -2716,6 +2760,71 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/convert.py" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/favorite.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="62" lean-forward="false" selection-start-line="1" selection-start-column="4" selection-end-line="2" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/shop.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="680">
+          <caret line="40" column="93" lean-forward="false" selection-start-line="40" selection-start-column="93" selection-end-line="40" selection-end-column="93" />
+          <folding>
+            <element signature="e#2636#2687#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/favicon.ico">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/moscow_live_data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ru/com/melt/meltlcd/WebBrowser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="476">
+          <caret line="144" column="56" lean-forward="false" selection-start-line="144" selection-start-column="36" selection-end-line="144" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/piter_live_data.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="0" column="965687" lean-forward="true" selection-start-line="0" selection-start-column="965687" selection-end-line="0" selection-end-column="965687" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="281">
+          <caret line="67" column="59" lean-forward="false" selection-start-line="67" selection-start-column="53" selection-end-line="67" selection-end-column="59" />
+          <folding>
+            <element signature="e#2244#2317#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="790">
+          <caret line="168" column="28" lean-forward="false" selection-start-line="168" selection-start-column="28" selection-end-line="168" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/item.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -2729,26 +2838,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/index.html">
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/settings.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="49" column="92" lean-forward="true" selection-start-line="49" selection-start-column="92" selection-end-line="49" selection-end-column="92" />
-          <folding />
+        <state relative-caret-position="51">
+          <caret line="3" column="50" lean-forward="false" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+          <folding>
+            <element signature="e#20#89#0" expanded="true" />
+            <element signature="e#99#137#0" expanded="true" />
+            <element signature="e#202#275#0" expanded="true" />
+            <element signature="e#330#368#0" expanded="true" />
+            <element signature="e#513#623#0" expanded="true" />
+            <element signature="e#720#777#0" expanded="true" />
+            <element signature="e#1081#1118#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/app.js">
+    <entry file="file://$PROJECT_DIR$/app/src/main/assets/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="203" column="53" lean-forward="false" selection-start-line="203" selection-start-column="41" selection-end-line="203" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/assets/pages/shop.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="34" lean-forward="false" selection-start-line="2" selection-start-column="34" selection-end-line="2" selection-end-column="34" />
+        <state relative-caret-position="153">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding />
         </state>
       </provider>

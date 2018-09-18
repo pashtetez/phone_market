@@ -46,12 +46,15 @@
     function MainCTRL($scope, $http, $rootScope, $window, $location, $timeout, $q, $route, $routeParams) {
         if (!localStorage.getItem("favorites")) localStorage.setItem("favorites", JSON.stringify([]));
         $scope.favorites = false;
+        if (!localStorage.getItem("storage")) localStorage.setItem("storage", JSON.stringify("moscow"));
+        $scope.storage = JSON.parse(localStorage.getItem("storage"));
+        $scope.storage_filename = {"moscow":{"filename":"moscow_live_data.js","name":"Москва"},"piter":{"filename":"piter_live_data.js","name":"Санкт-Петербург"}};
         $scope.pageClass = 'page-contact';
         $scope.results = [];
         $scope.item = const_data;
         $scope.itemlist = searchTree({
             'subitems': [],
-            'subtiteles': $scope.item
+            'subtiteles': const_data
         });
         $scope.limit = 50;
         $scope.inclimit = function(x) {
@@ -81,7 +84,10 @@
         }
         $scope.hideIt = function($event) {
             $event.stopPropagation();
-            document.getElementById('actuality').style.display = 'none'
+            document.getElementById('actuality').style.display = 'none';
+        }
+        $scope.showIt = function($event) {
+            document.getElementById('actuality').style.display = '';
         }
         $scope.triggerMenu = function() {
             if ($scope.menuopened)
@@ -89,13 +95,34 @@
             else
                 $scope.openNav();
         }
+        $scope.route_main = function() {
+            $scope.search = '';
+            $location.path('/shop');
+        }
+
+        ////////////////////
+        // STORAGE SELECT //
+        ////////////////////
+        $scope.change_store = function(){
+            if($scope.storage == "moscow"){
+                $scope.storage = "piter";
+            }else{
+                $scope.storage = "moscow";
+            }
+            localStorage.setItem("storage", JSON.stringify($scope.storage));
+            $scope.upd();
+            $scope.itemlist = searchTree({
+                'subitems': [],
+                'subtiteles': const_data
+            });
+        }
 
         ///////////////////////
         // DATE POPUP FOOTER //
         ///////////////////////
         $scope.datenow = data['date'];
         $scope.dateget = function() {
-            return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу Москва';
+            return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу '+$scope.storage_filename[$scope.storage]["name"];
         }
 
         /////////////////////////
@@ -107,7 +134,7 @@
             dynamicScript.type = "text/javascript";
             dynamicScript.id = "datascript"
             if (window.location.href.indexOf('android_asset') == -1)
-                dynamicScript.src = "moscow_live_data.js";
+                dynamicScript.src = $scope.storage_filename[$scope.storage]["filename"];
             else
                 dynamicScript.src = "data.js?t=" + new Date().getTime() + "data";
             $scope.datenow = data['date'];
@@ -139,8 +166,23 @@
             };
             document.getElementById('datascript').remove();
             docHeadObj.appendChild(dynamicScript);
+            $scope.showIt();
         };
         $scope.upd();
+
+        //////////////
+        // SETTINGS //
+        //////////////
+        $scope.is_page_settings = function() {
+            return $location.path() == '/settings';
+        }
+        $scope.call_settings = function() {
+            if ($scope.is_page_settings()){
+                $window.history.back();
+            }else{
+                $location.path('/settings');
+            }
+        }
 
         //////////////
         // FAVORITE //
@@ -155,15 +197,35 @@
                 data.push(x["\u041a\u043e\u0434"]);
             localStorage.setItem("favorites", JSON.stringify(data));
         }
+        $scope.favoritelist = function() {
+            return $scope.itemlist;
+        }
+        $scope.is_page_favorites = function() {
+            return $location.path() == '/favorite';
+        }
+        $scope.toggle_favorites = function() {
+            if ($scope.is_page_favorites()){
+                $window.history.back();
+            }else{
+                $location.path('/favorite');
+            }
+        }
+        $scope.searchfuncfav = function(item) {
+            if (JSON.parse(localStorage.getItem("favorites")).indexOf(item["\u041a\u043e\u0434"]) == -1) return false;
+            if ($scope.search == '') return true;
+            if ((item["\u041a\u043e\u0434"].indexOf($scope.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
+                return true;
+            }
+            return false;
+        };
 
         /////////////////
         // SEACRH LOGIC//
         /////////////////
         $scope.search = '';
-        $scope.searchfunc = function(item) {
-            if ($scope.search == '' && !$scope.favorites) return true;
+        $scope.searchfuncshop = function(item) {
+            if ($scope.search == '') return true;
             if ((item["\u041a\u043e\u0434"].indexOf($scope.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
-                if ($scope.favorites && (JSON.parse(localStorage.getItem("favorites")).indexOf(item["\u041a\u043e\u0434"]) == -1)) return false;
                 return true;
             }
             return false;
@@ -174,15 +236,17 @@
         /////////////////////////
         $scope.shopitems = function() {
             var x = const_data;
-            if ($routeParams.page){
-                var route = $routeParams.page.split('-');
-                for (var i in route){
-                    if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
-                        x = x[parseInt(route[i])]['subtiteles'];
-                    else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
-                        x = x[parseInt(route[i])]['subitems'];
+            if ($scope.search == ''){
+                if ($routeParams.page){
+                    var route = $routeParams.page.split('-');
+                    for (var i in route){
+                        if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
+                            x = x[parseInt(route[i])]['subtiteles'];
+                        else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
+                            x = x[parseInt(route[i])]['subitems'];
+                    }
                 }
-            }
+            }else return $scope.itemlist;
             return x;
         }
 
@@ -331,6 +395,10 @@
             })
             .when('/item/:code', {
                 templateUrl: 'pages/item.html',
+                controllerAs: 'vm'
+            })
+            .when('/settings', {
+                templateUrl: 'pages/settings.html',
                 controllerAs: 'vm'
             })
             .when('/', {

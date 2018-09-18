@@ -1,0 +1,32 @@
+<table width="100%" style="align-items: center;align-content: center;text-align: center;">
+    <tr style="height: 70px;max-height: 70px;">
+        <td>
+            <div ng-click="upd()" class="btn_one" style="font-size: 22px;height:30px;line-height:30px;align-items: center;">Обновить данные</div>
+        </td>
+    </tr>
+    <tr style="height: 70px;max-height: 70px;">
+        <td style="">
+            <table width="100%">
+                <tr >
+                    <td rowspan="2">
+                        <div style="padding-left:60px;margin-right:10px;font-size: 22px;height:30px;line-height:30px; align-items: center;">Склад:</div>
+                    </td>
+                    <td >
+                        <label style="padding-bottom: 6px;display:flex;font-size: 22px;">
+                            <input ng-click="change_store()" type="radio" ng-model="storage" value="moscow">
+                            Москва
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label style="display:flex;font-size: 22px;">
+                            <input ng-click="change_store()" type="radio" ng-model="storage" value="piter">
+                            Санкт-Петербург
+                        </label>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
