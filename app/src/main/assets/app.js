@@ -140,6 +140,7 @@
             $scope.datenow = data['date'];
             dynamicScript.onload = function() {
                 for (var i = 0; i < $scope.itemlist.length; i++) {
+                    try{
                     $scope.itemlist[i]['price1'] = data['items'][$scope.itemlist[i][
                         ["\u041a\u043e\u0434"]
                     ]]['price1'];
@@ -158,6 +159,9 @@
                     $scope.itemlist[i]['currency_name'] = data['items'][$scope.itemlist[i][
                         ["\u041a\u043e\u0434"]
                     ]]['currency_name'];
+                    }catch(e){
+                        alert(JSON.stringify($scope.itemlist[i]));
+                    }
                 }
                 $scope.map_data = map_data;
                 if (!$scope.$$phase) {
@@ -363,15 +367,15 @@
                 return ''
         }
         $scope.f_get_price = function(x, n) {
-            if (x.hasOwnProperty("\u041a\u043e\u0434"))
-                return x['price' + n] + ' руб.'
+            if (x.hasOwnProperty("\u041a\u043e\u0434")&& (x['price' + n] != 0))
+                return x['price' + n].split(".")[0] + 'р.'
             else
                 return ''
         }
         $scope.f_get_price_count = function(x, n) {
             var cats = [1, 25000, 80000];
             if (x.hasOwnProperty("\u041a\u043e\u0434") && (x['price' + n] != 0))
-                return "(от\xa0" + Math.ceil(cats[n - 1] / x['price' + n]) + "шт)";
+                return "от\xa0" + Math.ceil(cats[n - 1] / x['price' + n]) + "шт-";
             else
                 return ''
         }

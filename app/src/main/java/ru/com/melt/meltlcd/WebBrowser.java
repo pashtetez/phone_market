@@ -125,6 +125,7 @@ public class WebBrowser extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
         return r.toString();
     }
 
@@ -140,6 +141,7 @@ public class WebBrowser extends AppCompatActivity {
         }
         @Override
         public WebResourceResponse shouldInterceptRequest(final WebView view, String url) {
+            Log.e("mymessage", "mymessage");
             if (url.endsWith("moscow_live_data.js")) {
                 return getCssWebResourceResponseFromString("http://www.melt.com.ru/pdf/swap1.txt", "moscow_cached.txt");
             } else if (url.endsWith("piter_live_data.js")) {
@@ -151,6 +153,7 @@ public class WebBrowser extends AppCompatActivity {
         private WebResourceResponse getCssWebResourceResponseFromString(String origin_uri, String cache_path) {
             try {
                 URL url = new URL(origin_uri);
+                Log.e("mymessage", "mymessage");
                 String exampleString = "";
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 try {
@@ -163,6 +166,8 @@ public class WebBrowser extends AppCompatActivity {
                     }
                     exampleString = sb.toString();
                     exampleString = "data = " + getJson(exampleString);
+
+                    Log.e("mymessage", exampleString);
                 } finally {
                     urlConnection.disconnect();
                 }
