@@ -12,7 +12,7 @@
     'use strict';
 
     var app = angular
-        .module('app', ['ngRoute'])
+        .module('app', ['ngRoute','ui.grid'])
         .config(config)
         .controller('MainCTRL', MainCTRL);
 
@@ -49,6 +49,8 @@
         }
         $scope.map_data = map_data;
 
+
+        $scope.sc = {search:''};
         ///////////////////////
         /////////MENU//////////
         ///////////////////////
@@ -83,7 +85,7 @@
                 $scope.openNav();
         }
         $scope.route_main = function() {
-            $scope.search = '';
+            $scope.sc.search = '';
             $location.path('/shop');
         }
 
@@ -147,7 +149,7 @@
                         ["\u041a\u043e\u0434"]
                     ]]['currency_name'];
                     }catch(e){
-                        alert(JSON.stringify($scope.itemlist[i]));
+                        //alert(JSON.stringify($scope.itemlist[i]));
                     }
                 }
                 $scope.map_data = map_data;
@@ -203,8 +205,8 @@
         }
         $scope.searchfuncfav = function(item) {
             if (JSON.parse(localStorage.getItem("favorites")).indexOf(item["\u041a\u043e\u0434"]) == -1) return false;
-            if ($scope.search == '') return true;
-            if ((item["\u041a\u043e\u0434"].indexOf($scope.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
+            if ($scope.sc.search == '') return true;
+            if ((item["\u041a\u043e\u0434"].indexOf($scope.sc.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
                 return true;
             }
             return false;
@@ -213,10 +215,10 @@
         /////////////////
         // SEACRH LOGIC//
         /////////////////
-        $scope.search = '';
+        $scope.sc.search = '';
         $scope.searchfuncshop = function(item) {
-            if ($scope.search == '') return true;
-            if ((item["\u041a\u043e\u0434"].indexOf($scope.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
+            if ($scope.sc.search == '') return true;
+            if ((item["\u041a\u043e\u0434"].indexOf($scope.sc.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.sc.search.toLowerCase()) != -1)) {
                 return true;
             }
             return false;
@@ -227,7 +229,7 @@
         /////////////////////////
         $scope.shopitems = function() {
             var x = const_data;
-            if ($scope.search == ''){
+            if ($scope.sc.search == ''){
                 if ($routeParams.page){
                     var route = $routeParams.page.split('-');
                     for (var i in route){
@@ -245,19 +247,28 @@
         // ROUTE FUNCTIONS //
         /////////////////////
         $scope.$on('$routeChangeSuccess', function($event, next, current) {
+//            $scope.grid_options.data = $scope.shopitems();
+            if ($location.path().indexOf('-')!=-1) {
+                $scope.grid_options.rowHeight = 80;
+            }else{
+                $scope.grid_options.rowHeight = 65;
+            }
+
             if ($scope.is_page_favorites()) {
-                $scope.search = '';
+                $scope.sc.search = '';
             }
         });
         $scope.routePartOne = function(x) {
+
             $scope.limit = 15;
             if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
                 $location.path('/item/'+x["\u041a\u043e\u0434"]);
             }else{
+                var index = $scope.grid_options.data.indexOf(x);
                 if($routeParams.page){
-                     $location.path('/shop/'+$routeParams.page+'-'+$scope.shopitems().indexOf(x));
+                     $location.path('/shop/'+$routeParams.page+'-'+index);
                 }else{
-                    $location.path('/shop/'+$scope.shopitems().indexOf(x));
+                    $location.path('/shop/'+index);
                 }
             }
 
@@ -272,7 +283,7 @@
             //    $scope.search = '';
             console.log($location.path())
             if ($scope.is_page_favorites() || ($location.path().indexOf('item')==-1) ) {
-                $scope.search = '';
+                $scope.sc.search = '';
             }
             $window.history.back();
             if(!$scope.$$phase)$scope.$apply();
@@ -343,7 +354,7 @@
         }
         $scope.f_get_price = function(x, n) {
             if (x.hasOwnProperty("\u041a\u043e\u0434")&& (x['price' + n] != 0))
-                return x['price' + n].split(".")[0] + 'р.'
+                return
             else
                 return ''
         }
@@ -354,6 +365,55 @@
             else
                 return ''
         }
+        $scope.f_get_price_and_count = function(x, n) {
+            var cats = [1, 25000, 80000];
+            if (x.hasOwnProperty("\u041a\u043e\u0434") && (x['price' + n] != 0))
+                return "от\xa0" + Math.ceil(cats[n - 1] / x['price' + n]) + "шт-" + x['price' + n].split(".")[0] + 'р.';
+            else
+                return ''
+        }
+
+
+
+
+
+
+
+        ///////////////////////
+        // TABLE DESCRIPTION //
+        ///////////////////////
+
+
+        $scope.grid_options = {enableSorting: true, enableHorizontalScrollbar : 0, enableVerticalScrollbar: 2,
+                enableFiltering: true,
+                enableColumnMenus: false,
+                showHeader: false,
+                rowHeight:80,
+                //rowTemplate: '<div ng-right-click="grid.appScope.fn_lists.right_click_network($event,row)" ng-click="row.isSelected=!row.isSelected;grid.appScope.fn_lists.on_row_select(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell data-target="myMenu" ></div>',
+                columnDefs: [
+                    { field: 'title',name: 'Значение',cellTemplate : "pages/shop_cell.html",filter:{ rawTerm: true,
+                            term: '',
+                            condition:function(searchTerm, cellValue, row){
+                                console.log(searchTerm);
+                                if(!searchTerm) return true;
+                                if ((row.entity["\u041a\u043e\u0434"].indexOf(searchTerm) != -1) || (row.entity["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf(searchTerm.toLowerCase()) != -1)) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        }
+                    }
+                ],onRegisterApi : function (gridApi) {
+                    $scope.gridApi = gridApi;
+//                    gridApi.selection.on.rowSelectionChanged($scope, $scope.fn_lists.on_row_select);
+//                    gridApi.selection.on.rowSelectionChangedBatch($scope, $scope.fn_lists.on_row_select);
+                }
+            };
+            $scope.grid_options.data = 'shopitems()|filter: searchfuncshop';
+//            $scope.refresh = function(){
+//                console.log($scope.gridApi);
+//              $scope.gridApi.grid.columns[0].filters[0].term = $scope.sc.search;
+//              };
     }
 
     config.$inject = ['$routeProvider', '$locationProvider'];
