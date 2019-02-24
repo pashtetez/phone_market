@@ -12,22 +12,9 @@
     'use strict';
 
     var app = angular
-        .module('app', ['ngRoute', 'ngAnimate'])
+        .module('app', ['ngRoute'])
         .config(config)
         .controller('MainCTRL', MainCTRL);
-
-    //'ngRoute', 'ngCookies','ngResource','ngWebsocket','ngMaterial','scrollable-table','chart.js','dndLists', 'ngAnimate', 'ngSanitize', 'ngToast'])
-    app.controller('mainController', function($scope) {
-        $scope.pageClass = 'page-home';
-    });
-
-    app.controller('aboutController', function($scope) {
-        $scope.pageClass = 'page-about';
-    });
-
-    app.controller('contactController', function($scope) {
-        $scope.pageClass = 'page-contact';
-    });
 
     function searchTree(element) {
         var r = [];
@@ -56,9 +43,9 @@
             'subitems': [],
             'subtiteles': const_data
         });
-        $scope.limit = 50;
+        $scope.limit = 15;
         $scope.inclimit = function(x) {
-            $scope.limit = $scope.limit + 50;
+            $scope.limit = $scope.limit + 15;
         }
         $scope.map_data = map_data;
 
@@ -257,48 +244,36 @@
         /////////////////////
         // ROUTE FUNCTIONS //
         /////////////////////
-        $scope.ready = true;
         $scope.$on('$routeChangeSuccess', function($event, next, current) {
-            $timeout(function() {
-                $scope.pageClass = 'page-contact';
-                $scope.ready = true;
-            }, 300);
+            if ($scope.is_page_favorites()) {
+                $scope.search = '';
+            }
         });
         $scope.routePartOne = function(x) {
-            $scope.pageClass = 'page-about';
-            $scope.limit = 50;
-            $scope.routetmp = x;
-            $timeout(function() {
-                document.getElementById("routePartTwo").click();
-            }, 10);
-        }
-        $scope.routePartTwo = function() {
-            if ($scope.ready) {
-                var x = $scope.routetmp;
-                if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
-                    $location.path('/item/'+x["\u041a\u043e\u0434"]);
+            $scope.limit = 15;
+            if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
+                $location.path('/item/'+x["\u041a\u043e\u0434"]);
+            }else{
+                if($routeParams.page){
+                     $location.path('/shop/'+$routeParams.page+'-'+$scope.shopitems().indexOf(x));
                 }else{
-                    if($routeParams.page){
-                         $location.path('/shop/'+$routeParams.page+'-'+$scope.shopitems().indexOf(x));
-                    }else{
-                        $location.path('/shop/'+$scope.shopitems().indexOf(x));
-                    }
+                    $location.path('/shop/'+$scope.shopitems().indexOf(x));
                 }
-                if (!$scope.$$phase) {
-                    $scope.$apply()
-                }
-                $scope.ready = false;
-                $route.reload();
             }
+
         }
         $scope.backButtonPressed = function() {
             if ($scope.menuopened) {
                 $scope.closeNav();
                 return;
             }
-            $scope.limit = 50;
+            $scope.limit = 15;
             //if ($scope.itemone == null)
             //    $scope.search = '';
+            console.log($location.path())
+            if ($scope.is_page_favorites() || ($location.path().indexOf('item')==-1) ) {
+                $scope.search = '';
+            }
             $window.history.back();
             if(!$scope.$$phase)$scope.$apply();
         };

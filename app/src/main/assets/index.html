@@ -48,11 +48,11 @@
         <div style="height:0px;padding:0px;width:100%;border-bottom: 2px solid gray"></div>
         <div ng-click="triggerMenu();route_main()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Главная страница</div>
         <div ng-click="triggerMenu();toggle_favorites();" style="height:30px;line-height:30px;display: flex;  align-items: center;">Избранное</div>
-        <div ng-click="triggerMenu();routeJKI()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обозначения ЖКИ</div>
+        <!--<div ng-click="triggerMenu();routeJKI()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обозначения ЖКИ</div>-->
         <div ng-click="triggerMenu();call_settings()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Настройки</div>
 
         <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
-        <div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>
+        <!--<div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>-->
         <div onClick="Android.exit()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Выход</div>
         <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
         <!--<div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>-->
@@ -61,12 +61,12 @@
 
 
     <div class="top_bar" style="height:50px;background:#28c258;">
-        <div id="menu" style="font-family: mRoboto;font-size:45px;float: left;padding:0 8px" ng-click="triggerMenu()">&#8801;</div>
-        <span><input placeholder="Поиск" ng-model="search" ng-value="" ng-change="limit = 50" style="font-size:30px;height:40px;width: calc(100% - 170px); margin:0 10px; padding: 0px 4px; display: inline; border: none; border-bottom: 1px solid #ccc;background-color:transparent"/></span>
+        <div id="menu" style="font-family: mRoboto;font-size:45px;float: left;width: 45px;text-align: center;" ng-click="triggerMenu()">&#8801;</div>
+        <span><input placeholder="Поиск" ng-model="search" ng-value="" ng-change="limit = 50" style="font-size:30px;height:40px;width: calc(100% - 175px); margin:0 10px; padding: 0px 4px; display: inline; border: none; border-bottom: 1px solid #ccc;background-color:transparent"/></span>
         <svg ng-click="toggle_favorites()" width="40px" height="36px" viewBox="0 -25 300 300" xmlns="http://www.w3.org/2000/svg" version="1.1">
             <polygon  ng-attr-fill="{{ is_page_favorites()?'orange':'#FFF' }}" stroke="orange" stroke-width="10" color="orange" points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111" />
         </svg>
-        <div style="
+        <div style="    margin: 0 5px 0 0;
         height: 45px;width: 45px;float: right;" id="back" ng-click="backButtonPressed()"><img style="" src="back.svg.png"/></div>
     </div>
 
