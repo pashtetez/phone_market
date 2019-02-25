@@ -97,7 +97,10 @@
         ///////////////////////
         $scope.datenow = data['date'];
         $scope.dateget = function() {
-            return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу '+$scope.storage_filename[$scope.storage]["name"];
+            if($scope.storage_filename[$scope.storage]["name"] == "Москва")
+                return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу '+$scope.storage_filename[$scope.storage]["name"];
+            else
+                return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по всем складам';
         };
 
         /////////////////////////
@@ -194,17 +197,17 @@
                 $scope.refresh();
             }, 30);
             $timeout(function() {
+                $scope.refresh();
                 if($scope.scroll_to) {
-                    $scope.gridApi.core.scrollTo($scope.grid_options.data[$scope.grid_options.data.length - 1]);
+                    $scope.gridApi.core.scrollTo($scope.gridApi.grid.renderContainers.body.visibleRowCache[$scope.gridApi.grid.renderContainers.body.visibleRowCache.length-1].entity);
                     $timeout(function() {
                         $scope.gridApi.core.scrollTo($scope.scroll_id_to_remember);
-                    }, 60);
+                    }, 100);
                     $scope.scroll_to = false;
                 }
-            }, 60);
+            }, 100);
         });
         $scope.routePartOne = function(x,y) {
-            console.log(angular.element( document.querySelector( '#grid_shop' ) ));
             if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
                 $location.path('/item/'+x["\u041a\u043e\u0434"]);
                 $scope.scroll_id_to_remember = y;
@@ -225,6 +228,7 @@
             }
             if ($scope.is_page_favorites() || ($location.path().indexOf('item')==-1) ) {
                 $scope.sc.search = '';
+                $scope.code_for_analog = '';
             }
             if($location.path().indexOf('item')!=-1){
                 $scope.scroll_to = true;
@@ -375,8 +379,8 @@
             };
         $scope.refresh = function(){
             if (!$scope.is_page_favorites()) {
-                var x = const_data;
                 if ($scope.sc.search == '') {
+                    var x = const_data;
                     if ($routeParams.page) {
                         var route = $routeParams.page.split('-');
                         for (var i in route) {
@@ -386,10 +390,13 @@
                                 x = x[parseInt(route[i])]['subitems'];
                         }
                     }
+                    $scope.grid_options.data = x;
+                }else{
+                    $scope.grid_options.data = $scope.itemlist;
                 }
-                $scope.grid_options.data = x;
             }else
                 $scope.grid_options.data = $scope.itemlist;
+            if(!$scope.gridApi)return;
             $scope.gridApi.core.refresh();
             $scope.gridApi.grid.columns[0].filters[1].term = $scope.sc.search;
             $scope.gridApi.grid.columns[0].filters[0].term = $scope.is_page_favorites()?"FAV":"";
@@ -413,6 +420,10 @@
             }
             return {};
         };
+
+        $scope.showAbout = function(){
+            $location.path('/about');
+        };
         // $scope.refresh();
     }
 
@@ -430,6 +441,10 @@
             })
             .when('/favorite', {
                 templateUrl: 'pages/shop.html',
+                controllerAs: 'vm'
+            })
+            .when('/about', {
+                templateUrl: 'pages/about.html',
                 controllerAs: 'vm'
             })
             .when('/item/:code', {
