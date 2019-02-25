@@ -1,6 +1,6 @@
-<div class="ui-grid-cell-contents" style="padding: 5px 0 10px 0;" ng-click="grid.appScope.routePartOne(row.entity)" >
+<div class="ui-grid-cell-contents" style="padding: 5px 0 10px 0;" ng-click="grid.appScope.routePartOne(row.entity,row.entity)" >
     <div ng-if="grid.appScope.f_not_empty_image(row.entity) && !grid.appScope.f_has_kod_propetry(row.entity)" style="float:left;height: 50px;width:50px;"><img style="max-height: 50px;max-width:50px;" ng-src="{{grid.appScope.f_get_image_or_photo(row.entity)}}"/></div>
-    <div ng-if="!grid.appScope.f_has_kod_propetry(row.entity)"style="padding-top:15px">{{ grid.appScope.f_show_title_or_nazvanie(row.entity) }}</div>
+    <div ng-if="!grid.appScope.f_has_kod_propetry(row.entity)" style="padding-top:15px">{{ grid.appScope.f_show_title_or_nazvanie(row.entity) }}</div>
     <table ng-if="grid.appScope.f_has_kod_propetry(row.entity)" width="100%">
         <tr>
             <td rowspan="2">
@@ -9,7 +9,7 @@
             <td colspan="2">
                 {{ grid.appScope.f_show_title_or_nazvanie(row.entity) }}
             </td>
-            <td rowspan="3" style="height:30px;line-height:30px" width="7%">
+            <td rowspan="2" style="height:30px;line-height:30px" width="7%">
                 <svg style="float:right" ng-click="grid.appScope.addfav($event,row.entity)" width="30px" height="27px" viewBox="0 0 300 275" xmlns="http://www.w3.org/2000/svg" version="1.1">
                     <polygon  ng-attr-fill="{{ grid.appScope.f_fillcolor(row.entity) }}" stroke="orange" stroke-width="10" color="orange" points="150,25 179,111 269,111 197,165  223,251 150,200 77,251 103,165 31,111 121,111" />
                 </svg>
@@ -31,8 +31,18 @@
             <td>
                 <div style="">{{grid.appScope.f_get_price_and_count(row.entity,'3')}}</div>
             </td>
-
+            <td width="7%" ng-if="grid.appScope.isIndikator(row.entity)">
+                <div ng-click="grid.appScope.showAnalog($event,row.entity)">A</div>
+            </td>
         </tr>
     </table>
+    <div ng-if="row.entity['\u041a\u043e\u0434'] == grid.appScope.code_for_analog">
+        <div style="padding: 15px;">АНАЛОГИ</div>
+        <div ng-repeat="item in grid.appScope.current_analog_list(row.entity)" ng-click="grid.appScope.routePartOne(item,row.entity)" style="padding: 4px 0">
+            <span style="height:30px;line-height:30px;text-decoration: underline;">{{ grid.appScope.f_show_title_or_nazvanie(item) }}</span>
+            <span style="height:30px;line-height:30px;text-decoration: underline;">{{"Код:" + item['\u041a\u043e\u0434']}}</span>
+            <span style="height:30px;line-height:30px;text-decoration: underline;">{{"Склад:"+grid.appScope.f_get_count(item)}}</span>
+        </div>
+    </div>
 </div>
 

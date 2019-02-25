@@ -34,7 +34,7 @@
             'subtiteles': const_data
         });
         $scope.map_data = map_data;
-
+        $scope.code_for_analog = "";
 
         $scope.sc = {search:''};
         ///////////////////////
@@ -190,11 +190,24 @@
         // ROUTE FUNCTIONS //
         /////////////////////
         $scope.$on('$routeChangeSuccess', function($event, next, current) {
-            $timeout(function() { $scope.refresh();}, 30);
+            $timeout(function() {
+                $scope.refresh();
+            }, 30);
+            $timeout(function() {
+                if($scope.scroll_to) {
+                    $scope.gridApi.core.scrollTo($scope.grid_options.data[$scope.grid_options.data.length - 1]);
+                    $timeout(function() {
+                        $scope.gridApi.core.scrollTo($scope.scroll_id_to_remember);
+                    }, 60);
+                    $scope.scroll_to = false;
+                }
+            }, 60);
         });
-        $scope.routePartOne = function(x) {
+        $scope.routePartOne = function(x,y) {
+            console.log(angular.element( document.querySelector( '#grid_shop' ) ));
             if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
                 $location.path('/item/'+x["\u041a\u043e\u0434"]);
+                $scope.scroll_id_to_remember = y;
             }else{
                 var index = $scope.grid_options.data.indexOf(x);
                 if($routeParams.page){
@@ -212,6 +225,9 @@
             }
             if ($scope.is_page_favorites() || ($location.path().indexOf('item')==-1) ) {
                 $scope.sc.search = '';
+            }
+            if($location.path().indexOf('item')!=-1){
+                $scope.scroll_to = true;
             }
             $window.history.back();
             if(!$scope.$$phase)$scope.$apply();
@@ -289,6 +305,34 @@
             else
                 return ''
         };
+        $scope.showAnalog = function($event, x) {
+            $event.stopPropagation();
+            if ($scope.code_for_analog == x["\u041a\u043e\u0434"])
+                $scope.code_for_analog = "";
+            else if (x["\u041a\u043e\u0434"])
+                $scope.code_for_analog = x["\u041a\u043e\u0434"];
+        };
+        $scope.current_analog_list = function(item){
+            var name_parts = item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].split("-");
+            var result = [];
+            for (var i = 0; i < $scope.itemlist.length; i++) {
+                var name_parts_2 = $scope.itemlist[i]["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].split("-");
+                if (name_parts_2.length != name_parts.length)
+                    continue;
+                if(name_parts[0] != name_parts_2[0]) continue;
+                if(name_parts[1] != name_parts_2[1]) continue;
+                if(name_parts[2][0] > name_parts_2[2][0]) continue;
+                if(name_parts[2] == name_parts_2[2]) continue;
+                if(name_parts_2.length > 3)if(name_parts[3] != name_parts_2[3]) continue;
+                result.push($scope.itemlist[i]);
+            }
+            return result;
+        };
+        $scope.isIndikator = function(item) {
+            var name_parts = item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].split("-");
+            if (((name_parts.length == 3) || (name_parts.length == 4)) && (name_parts[0] == "MT"))return true;
+            return false;
+        };
 
         ///////////////////////
         // TABLE DESCRIPTION //
@@ -299,7 +343,7 @@
                 enableColumnMenus: false,
                 showHeader: false,
                 rowHeight:80,
-                //rowTemplate: '<div ng-right-click="grid.appScope.fn_lists.right_click_network($event,row)" ng-click="row.isSelected=!row.isSelected;grid.appScope.fn_lists.on_row_select(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell data-target="myMenu" ></div>',
+                rowTemplate: '<div ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ui-grid-cell ng-style="grid.appScope.analogs_style(row)" ></div>',
                 columnDefs: [
                     { field: 'title',name: 'Значение',cellTemplate : "pages/shop_cell.html",filters:[
                         {
@@ -362,6 +406,12 @@
                 }
             }
 
+        };
+        $scope.analogs_style = function(row) {
+            if($scope.code_for_analog == row.entity["\u041a\u043e\u0434"]) {
+                return {'height': 'auto'};
+            }
+            return {};
         };
         // $scope.refresh();
     }

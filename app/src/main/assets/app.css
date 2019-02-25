@@ -578,9 +578,14 @@ input:checked + .slider:before {
 }
 
 
+.ui-grid-viewport {
+    overflow-anchor: none;
+}
 
-
-
+.ui-grid-row:nth-child(odd):hover .ui-grid-cell{background:#ffffff}
+.ui-grid-row:nth-child(even):hover .ui-grid-cell{background:#f3f3f3}
+/*.ui-grid-cell:nth-child(odd):hover .ui-grid-cell{background:#fff}*/
+/*.ui-grid-cell:nth-child(even):hover .ui-grid-cell{background:#fff}*/
 
 
 
