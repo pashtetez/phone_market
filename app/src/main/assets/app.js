@@ -1,13 +1,3 @@
-//$('.radio').click(function(){
-//    $(this).parent().find('.radio').removeClass('selected');
-//    $(this).addClass('selected');
-//});
-//
-//window.onclick = function(e) {
-//    if($(e.target).hasClass('modal-all')){
-//        $(e.target)[0].style.display = "none";
-//    }
-//};
 (function() {
     'use strict';
 
@@ -32,7 +22,7 @@
 
     function MainCTRL($scope, $http, $rootScope, $window, $location, $timeout, $q, $route, $routeParams) {
         if (!localStorage.getItem("favorites")) localStorage.setItem("favorites", JSON.stringify([]));
-        $scope.favorites = false;
+        $scope.favorites = JSON.parse(localStorage.getItem("favorites"));
         if (!localStorage.getItem("storage")) localStorage.setItem("storage", JSON.stringify("moscow"));
         $scope.storage = JSON.parse(localStorage.getItem("storage"));
         $scope.storage_filename = {"moscow":{"filename":"moscow_live_data.js","name":"Москва"},"piter":{"filename":"piter_live_data.js","name":"Санкт-Петербург"}};
@@ -43,10 +33,6 @@
             'subitems': [],
             'subtiteles': const_data
         });
-        $scope.limit = 15;
-        $scope.inclimit = function(x) {
-            $scope.limit = $scope.limit + 15;
-        }
         $scope.map_data = map_data;
 
 
@@ -57,37 +43,37 @@
         $scope.menuroute = function(href) {
             $scope.closeNav();
             $location.path(href);
-        }
+        };
         $scope.menuopened = false;
         $scope.openNav = function() {
             $scope.menuopened = true;
             document.getElementById("mySidenav").style.left = "0px";
             document.getElementById("hider").style.width = "100%";
             document.getElementById("hider").style.left = "210px";
-        }
+        };
         $scope.closeNav = function() {
             $scope.menuopened = false;
             document.getElementById("mySidenav").style.left = "-210px";
             document.getElementById("hider").style.width = "0";
             document.getElementById("hider").style.left = "0px";
-        }
+        };
         $scope.hideIt = function($event) {
             $event.stopPropagation();
             document.getElementById('actuality').style.display = 'none';
-        }
+        };
         $scope.showIt = function($event) {
             document.getElementById('actuality').style.display = '';
-        }
+        };
         $scope.triggerMenu = function() {
             if ($scope.menuopened)
                 $scope.closeNav();
             else
                 $scope.openNav();
-        }
+        };
         $scope.route_main = function() {
             $scope.sc.search = '';
             $location.path('/shop');
-        }
+        };
 
         ////////////////////
         // STORAGE SELECT //
@@ -104,7 +90,7 @@
                 'subitems': [],
                 'subtiteles': const_data
             });
-        }
+        };
 
         ///////////////////////
         // DATE POPUP FOOTER //
@@ -112,7 +98,7 @@
         $scope.datenow = data['date'];
         $scope.dateget = function() {
             return 'В наличии на ' + $scope.datenow.replace(/;.*$/g,"")+ ' по складу '+$scope.storage_filename[$scope.storage]["name"];
-        }
+        };
 
         /////////////////////////
         // SCOPE INIT FUNCTION //
@@ -168,15 +154,14 @@
         //////////////
         $scope.is_page_settings = function() {
             return $location.path() == '/settings';
-        }
+        };
         $scope.call_settings = function() {
             if ($scope.is_page_settings()){
                 $window.history.back();
             }else{
                 $location.path('/settings');
             }
-        }
-
+        };
         //////////////
         // FAVORITE //
         //////////////
@@ -189,78 +174,25 @@
             else
                 data.push(x["\u041a\u043e\u0434"]);
             localStorage.setItem("favorites", JSON.stringify(data));
-        }
-        $scope.favoritelist = function() {
-            return $scope.itemlist;
-        }
+            $scope.favorites = data;
+        };
         $scope.is_page_favorites = function() {
             return $location.path() == '/favorite';
-        }
+        };
         $scope.toggle_favorites = function() {
             if ($scope.is_page_favorites()){
                 $window.history.back();
             }else{
                 $location.path('/favorite');
             }
-        }
-        $scope.searchfuncfav = function(item) {
-            if (JSON.parse(localStorage.getItem("favorites")).indexOf(item["\u041a\u043e\u0434"]) == -1) return false;
-            if ($scope.sc.search == '') return true;
-            if ((item["\u041a\u043e\u0434"].indexOf($scope.sc.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.search.toLowerCase()) != -1)) {
-                return true;
-            }
-            return false;
         };
-
-        /////////////////
-        // SEACRH LOGIC//
-        /////////////////
-        $scope.sc.search = '';
-        $scope.searchfuncshop = function(item) {
-            if ($scope.sc.search == '') return true;
-            if ((item["\u041a\u043e\u0434"].indexOf($scope.sc.search) != -1) || (item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.sc.search.toLowerCase()) != -1)) {
-                return true;
-            }
-            return false;
-        };
-
-        /////////////////////////
-        // SHOP DATA FUNCTIONS //
-        /////////////////////////
-        $scope.shopitems = function() {
-            var x = const_data;
-            if ($scope.sc.search == ''){
-                if ($routeParams.page){
-                    var route = $routeParams.page.split('-');
-                    for (var i in route){
-                        if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
-                            x = x[parseInt(route[i])]['subtiteles'];
-                        else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
-                            x = x[parseInt(route[i])]['subitems'];
-                    }
-                }
-            }else return $scope.itemlist;
-            return x;
-        }
-
         /////////////////////
         // ROUTE FUNCTIONS //
         /////////////////////
         $scope.$on('$routeChangeSuccess', function($event, next, current) {
-//            $scope.grid_options.data = $scope.shopitems();
-            if ($location.path().indexOf('-')!=-1) {
-                $scope.grid_options.rowHeight = 80;
-            }else{
-                $scope.grid_options.rowHeight = 65;
-            }
-
-            if ($scope.is_page_favorites()) {
-                $scope.sc.search = '';
-            }
+            $timeout(function() { $scope.refresh();}, 30);
         });
         $scope.routePartOne = function(x) {
-
-            $scope.limit = 15;
             if (!((x.hasOwnProperty('subtiteles') && x['subtiteles'].length) || (x.hasOwnProperty('subitems') && x['subitems'].length))){
                 $location.path('/item/'+x["\u041a\u043e\u0434"]);
             }else{
@@ -278,10 +210,6 @@
                 $scope.closeNav();
                 return;
             }
-            $scope.limit = 15;
-            //if ($scope.itemone == null)
-            //    $scope.search = '';
-            console.log($location.path())
             if ($scope.is_page_favorites() || ($location.path().indexOf('item')==-1) ) {
                 $scope.sc.search = '';
             }
@@ -317,73 +245,55 @@
             if (x.hasOwnProperty('image'))
                 return x.image != '';
             else
-                return x["\u0424\u043e\u0442\u043e"] != 'http://www.melt.com.ru/images/noimage.jpg';
-        }
+                return (x["\u0424\u043e\u0442\u043e"] != 'http://www.melt.com.ru/images/noimage.jpg') &&  (x["\u0424\u043e\u0442\u043e"] != null) ;
+        };
         $scope.f_has_kod_propetry = function(x) {
             return x.hasOwnProperty("\u041a\u043e\u0434");
-        }
+        };
         $scope.f_get_image_or_photo = function(x) {
             if (x.hasOwnProperty('image'))
                 return x.image
-            else
+            else if (x.hasOwnProperty("\u0424\u043e\u0442\u043e") && x["\u0424\u043e\u0442\u043e"])
                 return x["\u0424\u043e\u0442\u043e"]
-        }
+            else
+                return "noimage";
+        };
         $scope.f_show_title_or_nazvanie = function(x) {
             if (x.hasOwnProperty('title'))
                 return x.title
             else
                 return x["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"]
-        }
+        };
         $scope.f_fillcolor = function(x) {
-            if (JSON.parse(localStorage.getItem("favorites")).indexOf(x["\u041a\u043e\u0434"]) == -1)
+            if ($scope.favorites.indexOf(x["\u041a\u043e\u0434"]) == -1)
                 return 'none';
             else
                 return 'orange';
-        }
+        };
         $scope.f_get_code = function(x) {
             if (x.hasOwnProperty("count"))
                 return 'Код товара:'+x['\u041a\u043e\u0434'];
             else
                 return ''
-        }
+        };
         $scope.f_get_count = function(x) {
             if (x.hasOwnProperty("count"))
                 return x['count'] + x['count_unit'];
             else
                 return ''
-        }
-        $scope.f_get_price = function(x, n) {
-            if (x.hasOwnProperty("\u041a\u043e\u0434")&& (x['price' + n] != 0))
-                return
-            else
-                return ''
-        }
-        $scope.f_get_price_count = function(x, n) {
-            var cats = [1, 25000, 80000];
-            if (x.hasOwnProperty("\u041a\u043e\u0434") && (x['price' + n] != 0))
-                return "от\xa0" + Math.ceil(cats[n - 1] / x['price' + n]) + "шт-";
-            else
-                return ''
-        }
+        };
         $scope.f_get_price_and_count = function(x, n) {
             var cats = [1, 25000, 80000];
             if (x.hasOwnProperty("\u041a\u043e\u0434") && (x['price' + n] != 0))
                 return "от\xa0" + Math.ceil(cats[n - 1] / x['price' + n]) + "шт-" + x['price' + n].split(".")[0] + 'р.';
             else
                 return ''
-        }
-
-
-
-
-
-
+        };
 
         ///////////////////////
         // TABLE DESCRIPTION //
         ///////////////////////
-
-
+        $scope.sc.search = "";
         $scope.grid_options = {enableSorting: true, enableHorizontalScrollbar : 0, enableVerticalScrollbar: 2,
                 enableFiltering: true,
                 enableColumnMenus: false,
@@ -391,29 +301,69 @@
                 rowHeight:80,
                 //rowTemplate: '<div ng-right-click="grid.appScope.fn_lists.right_click_network($event,row)" ng-click="row.isSelected=!row.isSelected;grid.appScope.fn_lists.on_row_select(row)" ng-repeat="(colRenderIndex, col) in colContainer.renderedColumns track by col.colDef.name" class="ui-grid-cell" ng-class="{ \'ui-grid-row-header-cell\': col.isRowHeader }"  ui-grid-cell data-target="myMenu" ></div>',
                 columnDefs: [
-                    { field: 'title',name: 'Значение',cellTemplate : "pages/shop_cell.html",filter:{ rawTerm: true,
+                    { field: 'title',name: 'Значение',cellTemplate : "pages/shop_cell.html",filters:[
+                        {
+                            rawTerm: true,
                             term: '',
                             condition:function(searchTerm, cellValue, row){
-                                console.log(searchTerm);
-                                if(!searchTerm) return true;
+                                if ($scope.favorites.indexOf(row.entity["\u041a\u043e\u0434"]) == -1) return false;
+                                if ($scope.sc.search == '') return true;
+                                if ((row.entity["\u041a\u043e\u0434"].indexOf($scope.sc.search) != -1) || (row.entity["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf($scope.sc.search.toLowerCase()) != -1)) {
+                                    return true;
+                                }
+                                return false;
+                            }
+                        },{
+                            rawTerm: true,
+                            term: $scope.sc.search,
+                            condition:function(searchTerm, cellValue, row){
+                                if (!searchTerm) return true;
                                 if ((row.entity["\u041a\u043e\u0434"].indexOf(searchTerm) != -1) || (row.entity["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].toLowerCase().indexOf(searchTerm.toLowerCase()) != -1)) {
                                     return true;
                                 }
                                 return false;
                             }
-                        }
+                        }]
                     }
                 ],onRegisterApi : function (gridApi) {
                     $scope.gridApi = gridApi;
-//                    gridApi.selection.on.rowSelectionChanged($scope, $scope.fn_lists.on_row_select);
-//                    gridApi.selection.on.rowSelectionChangedBatch($scope, $scope.fn_lists.on_row_select);
                 }
             };
-            $scope.grid_options.data = 'shopitems()|filter: searchfuncshop';
-//            $scope.refresh = function(){
-//                console.log($scope.gridApi);
-//              $scope.gridApi.grid.columns[0].filters[0].term = $scope.sc.search;
-//              };
+        $scope.refresh = function(){
+            if (!$scope.is_page_favorites()) {
+                var x = const_data;
+                if ($scope.sc.search == '') {
+                    if ($routeParams.page) {
+                        var route = $routeParams.page.split('-');
+                        for (var i in route) {
+                            if (x[parseInt(route[i])].hasOwnProperty('subtiteles') && x[parseInt(route[i])]['subtiteles'].length)
+                                x = x[parseInt(route[i])]['subtiteles'];
+                            else if (x[parseInt(route[i])].hasOwnProperty('subitems') && x[parseInt(route[i])]['subitems'].length)
+                                x = x[parseInt(route[i])]['subitems'];
+                        }
+                    }
+                }
+                $scope.grid_options.data = x;
+            }else
+                $scope.grid_options.data = $scope.itemlist;
+            $scope.gridApi.core.refresh();
+            $scope.gridApi.grid.columns[0].filters[1].term = $scope.sc.search;
+            $scope.gridApi.grid.columns[0].filters[0].term = $scope.is_page_favorites()?"FAV":"";
+            if ($location.path().indexOf('-')!=-1) {
+                $scope.grid_options.rowHeight = 80;
+            }else{
+                if ($scope.sc.search != "") {
+                    $scope.grid_options.rowHeight = 80;
+                }else{
+                    if ($scope.is_page_favorites()) {
+                        $scope.grid_options.rowHeight = 80;
+                    }else
+                        $scope.grid_options.rowHeight = 65;
+                }
+            }
+
+        };
+        // $scope.refresh();
     }
 
     config.$inject = ['$routeProvider', '$locationProvider'];
@@ -429,7 +379,7 @@
                 controllerAs: 'vm'
             })
             .when('/favorite', {
-                templateUrl: 'pages/favorite.html',
+                templateUrl: 'pages/shop.html',
                 controllerAs: 'vm'
             })
             .when('/item/:code', {

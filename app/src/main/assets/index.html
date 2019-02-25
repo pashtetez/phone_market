@@ -51,13 +51,10 @@
         <div ng-click="triggerMenu();toggle_favorites();" style="height:30px;line-height:30px;display: flex;  align-items: center;">Избранное</div>
         <!--<div ng-click="triggerMenu();routeJKI()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Обозначения ЖКИ</div>-->
         <div ng-click="triggerMenu();call_settings()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Настройки</div>
-
         <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
         <!--<div onClick="showAndroidToast('Created by someone. V0.4.0')" style="height:30px;line-height:30px;display: flex;  align-items: center;">О программе</div>-->
         <div onClick="Android.exit()" style="height:30px;line-height:30px;display: flex;  align-items: center;">Выход</div>
         <div style="height:0px;padding:0px; width:100%;border-bottom: 2px solid gray"></div>
-        <!--<div ng-repeat="it in map_data" style="height:30px;line-height:30px;display: flex;  align-items: center;" ng-click="menuroute(it.href)">{{it.name}}</div>-->
-        <!--<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>-->
     </div>
 
 
@@ -75,48 +72,10 @@
 
     <div class="date_popup" id="actuality" ng-click="hideIt($event)" style="position: absolute; bottom: 5px; left:5%; width:90%; background: #73AD21;border-radius: 10px;padding: 5px;color:#FFFFFF; text-align:center">{{ dateget() }}<div style="float:right">X&nbsp;</div></div>
 
-    <!--<div id="other-settings-view" ng-controller="otherSettingsController" class="modal-all" align="center" ng-include="'/client/modals/other-settings.view.html'"></div>-->
-    <!--<div id="modem-view" ng-controller="sepModem" class="modal-all" align="center" ng-include="'/client/modals/modem.view.html'"></div>-->
-    <!--<div id="column-settings-view" ng-controller="NestedListsDemoController" class="modal-all" align="center" ng-include="'/client/modals/column-settings.view.html'"></div>-->
-    <!--<div id="csv-settings-view" ng-controller="csvSettingsController" class="modal-all" align="center" ng-include="'/client/modals/csv-settings.view.html'"></div>-->
-    <!--<div id="detail-choose-view" ng-controller="detailChooseController" class="modal-all" align="center" ng-include="'/client/modals/detail-choose.view.html'"></div>-->
-
-    <!--<script src="js/other/DragDropTouch.js"></script>-->
-    <!--<script src="js/other/Chart.min.js"></script>-->
-    <!--<script src="js/other/moment.js"></script>-->
-    <!--<script src="js/jquery/jquery-3.1.1.min.js"></script>-->
-    <!--<script src="js/jquery/colResizable-1.6.min.js"></script>-->
     <script src="js/angular/angular.min.js"></script>
     <script src="js/angular/angular-route.min.js"></script>
     <script src="js/angular/ui-grid.min.js"></script>
-    <!--<script src="js/angular/angular-cookies.min.js"></script>-->
-    <!--<script src="js/angular/angular-resource.js"></script>-->
-    <!--<script src="js/angular/angular-websocket.js"></script>-->
-    <!--<script src="js/angular/angular-sanitize.js"></script>-->
     <script src="js/angular/angular-animate.min.js"></script>
-    <!--<script src="js/angular/angular-aria.min.js"></script>-->
-    <!--<script src="js/angular/angular-material.min.js"></script>-->
-    <!--<script src="js/angular/angular-chart.min.js"></script>-->
-    <!--<script src="js/angular/angular-drag-and-drop-lists.min.js"></script>-->
-    <!--<script src="js/angular/angular-scrollable-table.min.js"></script>-->
-    <!--<script src="js/ngtoast/ngToast.min.js"></script>-->
-    <!--<link href="js/ngtoast/alert.css" rel="stylesheet" />-->
-    <!--<link href="js/ngtoast/ngToast.min.css" rel="stylesheet" />-->
-    <!--<link href="js/ngtoast/ngToast-animations.min.css" rel="stylesheet" />-->
-
     <script src="app.js"></script>
-    <!--<script src="data-service.js"></script>-->
-    <!--<script src="translation/translation.js"></script>-->
-    <!--<script src="tabs/gsm.controller.js"></script>-->
-    <!--<script src="tabs/wcdma.controller.js"></script>-->
-    <!--<script src="tabs/lte.controller.js"></script>-->
-    <!--<script src="tabs/gsmpower.controller.js"></script>-->
-
-    <!--<script src="modals/other-settings.controller.js"></script>-->
-    <!--<script src="modals/modem.controller.js"></script>-->
-    <!--<script src="modals/column-settings.controller.js"></script>-->
-    <!--<script src="modals/csv-settings.controller.js"></script>-->
-    <!--<script src="modals/detail-choose.controller.js"></script>-->
-
 </body>
 </html>
