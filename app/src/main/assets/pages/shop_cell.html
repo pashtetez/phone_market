@@ -6,8 +6,10 @@
             <td rowspan="2">
                 <div ng-if="grid.appScope.f_not_empty_image(row.entity)" style="float:left;height: 50px;width:80px;"><img style="max-height: 50px;max-width:80px;" ng-src="{{grid.appScope.f_get_image_or_photo(row.entity)}}"/></div>
             </td>
-            <td colspan="2">
-                {{ grid.appScope.f_show_title_or_nazvanie(row.entity) }}
+            <td colspan="2" height="14px">
+                <div class="test">
+                    {{ grid.appScope.f_show_title_or_nazvanie(row.entity) }}
+                </div>
             </td>
             <td rowspan="2" style="height:30px;line-height:30px" width="7%">
                 <svg style="float:right" ng-click="grid.appScope.addfav($event,row.entity)" width="30px" height="27px" viewBox="0 0 300 275" xmlns="http://www.w3.org/2000/svg" version="1.1">

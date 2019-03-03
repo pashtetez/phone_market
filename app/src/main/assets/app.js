@@ -327,14 +327,14 @@
                 if(name_parts[1] != name_parts_2[1]) continue;
                 if(name_parts[2][0] > name_parts_2[2][0]) continue;
                 if(name_parts[2] == name_parts_2[2]) continue;
-                if(name_parts_2.length > 3)if(name_parts[3] != name_parts_2[3]) continue;
+                if(name_parts_2.length > 3)if((name_parts[3] != name_parts_2[3]) && (name_parts[4] != name_parts_2[4])) continue;
                 result.push($scope.itemlist[i]);
             }
             return result;
         };
         $scope.isIndikator = function(item) {
             var name_parts = item["\u041d\u0430\u0438\u043c\u0435\u043d\u043e\u0432\u0430\u043d\u0438\u0435"].split("-");
-            if (((name_parts.length == 3) || (name_parts.length == 4)) && (name_parts[0] == "MT"))return true;
+            if (((name_parts.length == 3) || (name_parts.length == 4) || (name_parts.length == 5)) && (name_parts[0] == "MT") && ((name_parts.length != 5)|| (name_parts[4] == "T")))return true;
             return false;
         };
 
@@ -408,8 +408,12 @@
                 }else{
                     if ($scope.is_page_favorites()) {
                         $scope.grid_options.rowHeight = 80;
-                    }else
+                    }else{
+                        if ($scope.grid_options.data[0].hasOwnProperty("count")) {
+                            $scope.grid_options.rowHeight = 80;
+                        }else
                         $scope.grid_options.rowHeight = 65;
+                    }
                 }
             }
 
