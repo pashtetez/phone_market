@@ -6,8 +6,8 @@ android {
         applicationId "ru.com.melt.meltlcd"
         minSdkVersion 15
         targetSdkVersion 27
-        versionCode 3
-        versionName "3"
+        versionCode 4
+        versionName "1.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
